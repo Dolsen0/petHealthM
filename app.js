@@ -3,9 +3,7 @@ const app = express();
 const port = 3001;
 const GetUsers = require('./src/GetUsers.js');
 const GetPets = require('./src/GetPets.js');
-
-
-
+const GetUserById = require('./src/GetUserById.js');
 
 app.get('/', (req, res) => {
     res.send('Pet Health');
@@ -31,18 +29,24 @@ app.get('/allpets', async (req, res) => {
     }
   });
 
-app.get('/users/:userid', async (req, res) => {
-    res.send(req.params)
-});
+  app.get('/users/:id', async (req, res) => {
+    try {
+      const id = req.params.id;
+      const result = await GetUserById(id);
+      res.send(result);
+    } catch (err) {
+      console.error(err);
+      res.status(404).send({ error: err.message });
+    }
+  });
 
 app.get('/users/:userid/pet/:petid', async (req, res) => {
     res.send(req.params)
 });
 
-
-app.post('/register', (req, res) => {
-    res.send('register here')
-});
+app.post('/register', async (req, res) => {
+res.send('register new user here')
+  });
 
 app.post('/users/:userid/newpet', (req, res) => {
     res.send('new pet sends here')

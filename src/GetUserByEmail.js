@@ -10,6 +10,7 @@ async function GetUserByEmail(email) {
     if (!result) {
       throw new Error(`User with ID ${email} not found`);
     }
+    console.log(result);
     return result;
   } catch (err) {
     console.error(err);

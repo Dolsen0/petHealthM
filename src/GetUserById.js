@@ -3,7 +3,7 @@ const { ObjectId } = require('mongodb');
 
 async function GetUserById(id) {
   try {
-    const database = client.db("pethealth");
+    const database = client.db("petHealth");
     const collection = database.collection("users");
     const result = await collection.findOne({ _id: new ObjectId(id) });
     if (!result) {

@@ -4,6 +4,7 @@ const port = 3001;
 const GetUsers = require('./src/GetUsers.js');
 const GetPets = require('./src/GetPets.js');
 const GetUserById = require('./src/GetUserById.js');
+const GetUserByEmail = require('./src/GetUserByEmail.js');
 
 app.get('/', (req, res) => {
     res.send('Pet Health');
@@ -39,10 +40,21 @@ app.get('/allpets', async (req, res) => {
       res.status(404).send({ error: err.message });
     }
   });
+  app.get('/users/user', async (req, res) => {
+    try {
+      const id = req.params.id;
+      const result = await GetUserByEmail(email);
+      res.send(result);
+    } catch (err) {
+      console.error(err);
+      res.status(404).send({ error: err.message });
+    }
+  });
 
 app.get('/users/:userid/pet/:petid', async (req, res) => {
     res.send(req.params)
 });
+
 
 app.post('/register', async (req, res) => {
 res.send('register new user here')

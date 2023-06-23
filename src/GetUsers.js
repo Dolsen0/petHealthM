@@ -2,7 +2,7 @@ const { client } = require('./dbConnect.js');
 
 async function GetUsers() {
   try {
-    const database = client.db("pethealth");
+    const database = client.db("petHealth");
     const collection = database.collection("users");
     const result = await collection.find({}).toArray();
     return result;
